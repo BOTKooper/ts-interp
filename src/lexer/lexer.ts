@@ -60,16 +60,20 @@ export class Lexer {
 
     this.skipWhitespace();
 
+    if (this.isPeekable(this.ch)) {
+      const peek = this.peekChar();
+      if (peek !== 0 && charToTokenMap.has(this.ch + peek)) {
+        token = new Token(charToTokenMap.get(this.ch + peek), this.ch + peek);
+        
+        this.readChar();
+        this.readChar();
+        return token;
+      }
+    }
+
     if (charToTokenMap.has(this.ch)) {
       token = new Token(charToTokenMap.get(this.ch), this.ch);
 
-      if (this.isPeekable(this.ch)) {
-        const peek = this.peekChar();
-        if (peek !== 0 && charToTokenMap.has(this.ch + peek)) {
-          token = new Token(charToTokenMap.get(this.ch + peek), this.ch + peek);
-          this.readChar();
-        }
-      }
       this.readChar();
       return token;
     }
