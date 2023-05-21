@@ -268,7 +268,7 @@ describe("Lexer", () => {
     });
   });
 
-	it.only('== && != >= <=', () => {
+	it('== && != >= <=', () => {
 		const input = `10 == 10 != 9 && false || 5 <= 10 >= 5;`;
 
 		const expectedTokens = [
