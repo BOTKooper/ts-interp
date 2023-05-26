@@ -1,4 +1,4 @@
-import { Token, TokenType, keywords } from "./tokens";
+import { Token, TokenType, keywords } from "../tokens/tokens";
 
 const charToTokenMap = new Map<string, TokenType | undefined>([
   ["=", TokenType.ASSIGN],
@@ -23,7 +23,7 @@ const charToTokenMap = new Map<string, TokenType | undefined>([
   [">=", TokenType.GTE],
   ["<=", TokenType.LTE],
   ["&", TokenType.BITWISE_AND],
-  ["|", TokenType.BITWISE_OR]
+  ["|", TokenType.BITWISE_OR],
 ]);
 
 export class Lexer {
@@ -64,7 +64,7 @@ export class Lexer {
       const peek = this.peekChar();
       if (peek !== 0 && charToTokenMap.has(this.ch + peek)) {
         token = new Token(charToTokenMap.get(this.ch + peek), this.ch + peek);
-        
+
         this.readChar();
         this.readChar();
         return token;

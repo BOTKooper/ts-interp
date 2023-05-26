@@ -15,7 +15,8 @@
     "noImplicitReturns": true,
     "noImplicitAny": false,
     "noImplicitThis": false,
-    "strictNullChecks": false
+    "strictNullChecks": false,
+    "types": ["vitest/globals"]
   },
   "include": ["src/**/*"]
 }

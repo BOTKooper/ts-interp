@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { Token, TokenType } from "./tokens";
+import { Token, TokenType } from "../tokens/tokens";
 import { Lexer } from "./lexer";
 
 describe("Lexer", () => {
@@ -10,7 +10,7 @@ describe("Lexer", () => {
     expect(lexer.input).toEqual("1 + 2");
     expect(lexer.position).toEqual(0);
     expect(lexer.readPosition).toEqual(1);
-    expect(lexer.ch).toEqual('1');
+    expect(lexer.ch).toEqual("1");
   });
 
   it("1", () => {
@@ -26,11 +26,11 @@ describe("Lexer", () => {
       [TokenType.RBRACE, "}"],
       [TokenType.COMMA, ","],
       [TokenType.SEMICOLON, ";"],
-      [TokenType.EOF, ""]
+      [TokenType.EOF, ""],
     ];
 
     expectedTokens.forEach(([expectedType, expectedLiteral]) => {
-      const tok = lexer.nextToken(); //?
+      const tok = lexer.nextToken();
 
       expect(tok.type).toEqual(expectedType);
       expect(tok.literal).toEqual(expectedLiteral);
@@ -85,19 +85,18 @@ describe("Lexer", () => {
       [TokenType.IDENT, "ten"],
       [TokenType.RPAREN, ")"],
       [TokenType.SEMICOLON, ";"],
-      [TokenType.EOF, ""]
+      [TokenType.EOF, ""],
     ];
 
     expectedTokens.forEach(([expectedType, expectedLiteral]) => {
       const tok = lexer.nextToken();
-
 
       expect(tok.type).toEqual(expectedType);
       expect(tok.literal).toEqual(expectedLiteral);
     });
   });
 
-	it("3", () => {
+  it("3", () => {
     const input = `let five = 5;
 		let ten = 10;
 		let add = fn(x, y) {
@@ -147,31 +146,30 @@ describe("Lexer", () => {
       [TokenType.IDENT, "ten"],
       [TokenType.RPAREN, ")"],
       [TokenType.SEMICOLON, ";"],
-			[TokenType.BANG, "!"],
-			[TokenType.MINUS, "-"],
-			[TokenType.SLASH, "/"],
-			[TokenType.ASTERISK, "*"],
-			[TokenType.INT, "5"],
-			[TokenType.SEMICOLON, ";"],
-			[TokenType.INT, "5"],
-			[TokenType.LT, "<"],
-			[TokenType.INT, "10"],
-			[TokenType.GT, ">"],
-			[TokenType.INT, "5"],
-			[TokenType.SEMICOLON, ";"],
-      [TokenType.EOF, ""]
+      [TokenType.BANG, "!"],
+      [TokenType.MINUS, "-"],
+      [TokenType.SLASH, "/"],
+      [TokenType.ASTERISK, "*"],
+      [TokenType.INT, "5"],
+      [TokenType.SEMICOLON, ";"],
+      [TokenType.INT, "5"],
+      [TokenType.LT, "<"],
+      [TokenType.INT, "10"],
+      [TokenType.GT, ">"],
+      [TokenType.INT, "5"],
+      [TokenType.SEMICOLON, ";"],
+      [TokenType.EOF, ""],
     ];
 
     expectedTokens.forEach(([expectedType, expectedLiteral]) => {
       const tok = lexer.nextToken();
-
 
       expect(tok.type).toEqual(expectedType);
       expect(tok.literal).toEqual(expectedLiteral);
     });
   });
 
-	it("4", () => {
+  it("4", () => {
     const input = `let five = 5;
 		let ten = 10;
 		let add = fn(x, y) {
@@ -226,76 +224,75 @@ describe("Lexer", () => {
       [TokenType.IDENT, "ten"],
       [TokenType.RPAREN, ")"],
       [TokenType.SEMICOLON, ";"],
-			[TokenType.BANG, "!"],
-			[TokenType.MINUS, "-"],
-			[TokenType.SLASH, "/"],
-			[TokenType.ASTERISK, "*"],
-			[TokenType.INT, "5"],
-			[TokenType.SEMICOLON, ";"],
-			[TokenType.INT, "5"],
-			[TokenType.LT, "<"],
-			[TokenType.INT, "10"],
-			[TokenType.GT, ">"],
-			[TokenType.INT, "5"],
-			[TokenType.SEMICOLON, ";"],
-			[TokenType.IF, "if"],
-			[TokenType.LPAREN, "("],
-			[TokenType.INT, "5"],
-			[TokenType.LT, "<"],
-			[TokenType.INT, "10"],
-			[TokenType.RPAREN, ")"],
-			[TokenType.LBRACE, "{"],
-			[TokenType.RETURN, "return"],
-			[TokenType.TRUE, "true"],
-			[TokenType.SEMICOLON, ";"],
-			[TokenType.RBRACE, "}"],
-			[TokenType.ELSE, "else"],
-			[TokenType.LBRACE, "{"],
-			[TokenType.RETURN, "return"],
-			[TokenType.FALSE, "false"],
-			[TokenType.SEMICOLON, ";"],
-			[TokenType.RBRACE, "}"],
+      [TokenType.BANG, "!"],
+      [TokenType.MINUS, "-"],
+      [TokenType.SLASH, "/"],
+      [TokenType.ASTERISK, "*"],
+      [TokenType.INT, "5"],
+      [TokenType.SEMICOLON, ";"],
+      [TokenType.INT, "5"],
+      [TokenType.LT, "<"],
+      [TokenType.INT, "10"],
+      [TokenType.GT, ">"],
+      [TokenType.INT, "5"],
+      [TokenType.SEMICOLON, ";"],
+      [TokenType.IF, "if"],
+      [TokenType.LPAREN, "("],
+      [TokenType.INT, "5"],
+      [TokenType.LT, "<"],
+      [TokenType.INT, "10"],
+      [TokenType.RPAREN, ")"],
+      [TokenType.LBRACE, "{"],
+      [TokenType.RETURN, "return"],
+      [TokenType.TRUE, "true"],
+      [TokenType.SEMICOLON, ";"],
+      [TokenType.RBRACE, "}"],
+      [TokenType.ELSE, "else"],
+      [TokenType.LBRACE, "{"],
+      [TokenType.RETURN, "return"],
+      [TokenType.FALSE, "false"],
+      [TokenType.SEMICOLON, ";"],
+      [TokenType.RBRACE, "}"],
 
-      [TokenType.EOF, ""]
+      [TokenType.EOF, ""],
     ];
 
     expectedTokens.forEach(([expectedType, expectedLiteral]) => {
       const tok = lexer.nextToken();
-
 
       expect(tok.type).toEqual(expectedType);
       expect(tok.literal).toEqual(expectedLiteral);
     });
   });
 
-	it('== && != >= <=', () => {
-		const input = `10 == 10 != 9 && false || 5 <= 10 >= 5;`;
+  it("== && != >= <=", () => {
+    const input = `10 == 10 != 9 && false || 5 <= 10 >= 5;`;
 
-		const expectedTokens = [
-			[TokenType.INT, "10"],
-			[TokenType.EQ, "=="],
-			[TokenType.INT, "10"],
-			[TokenType.NOT_EQ, "!="],
-			[TokenType.INT, "9"],
-			[TokenType.AND, "&&"],
-			[TokenType.FALSE, "false"],
-			[TokenType.OR, "||"],
-			[TokenType.INT, "5"],
-			[TokenType.LTE, "<="],
-			[TokenType.INT, "10"],
-			[TokenType.GTE, ">="],
-			[TokenType.INT, "5"],
-			[TokenType.SEMICOLON, ";"],
-			[TokenType.EOF, ""]
-		];
+    const expectedTokens = [
+      [TokenType.INT, "10"],
+      [TokenType.EQ, "=="],
+      [TokenType.INT, "10"],
+      [TokenType.NOT_EQ, "!="],
+      [TokenType.INT, "9"],
+      [TokenType.AND, "&&"],
+      [TokenType.FALSE, "false"],
+      [TokenType.OR, "||"],
+      [TokenType.INT, "5"],
+      [TokenType.LTE, "<="],
+      [TokenType.INT, "10"],
+      [TokenType.GTE, ">="],
+      [TokenType.INT, "5"],
+      [TokenType.SEMICOLON, ";"],
+      [TokenType.EOF, ""],
+    ];
 
-		const lexer = new Lexer(input);
+    const lexer = new Lexer(input);
 
-		expectedTokens.forEach(([expectedType, expectedLiteral]) => {
-			const tok = lexer.nextToken();
+    expectedTokens.forEach(([expectedType, expectedLiteral]) => {
+      const tok = lexer.nextToken();
 
-			expect(tok.type).toEqual(expectedType);
-			expect(tok.literal).toEqual(expectedLiteral);
-		});
-	});
+      expect(tok.type).toEqual(expectedType);
+      expect(tok.literal).toEqual(expectedLiteral);
+    });
+  });
 });
